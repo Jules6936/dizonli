@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2576.21 1120.63">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #242e30;
+      }
+
+      .cls-2 {
+        fill: #76ba49;
+      }
+
+      .cls-3 {
+        fill: #f56807;
+      }
+    </style>
+  </defs>
+  <g id="Calque_1-2" data-name="Calque 1">
+    <g>
+      <path class="cls-2" d="M1769.54,335.27c0,6.83,0,13.66,0,20.49-.05,63.15.04,126.3-.22,189.45-.15,36.68-12.29,49.91-44.6,49.67-32.88-.24-46.17-14.62-46.22-50.99-.16-111.33.06-222.65-.31-333.98-.06-17.47,2.59-32.63,20.1-40.76,17.75-8.24,48.9-4.95,60.55,7.89,16.16,17.81,31.34,36.56,46.25,55.46,45.95,58.27,91.55,116.82,137.32,175.23,4.75,6.07,9.71,11.98,18.13,22.35.65-11.63,1.34-18.23,1.35-24.82.06-65.1-.03-130.21.01-195.31.02-34.2,11.2-44.21,48.89-44.11,31.71.08,43.22,11.59,43.23,43.92.04,111.98-.01,223.96-.13,335.93-.03,27.1-8.11,41.59-25.86,47.48-22.89,7.61-46.49,1.4-61.53-17.5-59.96-75.39-119.61-151.03-179.42-226.55-4.2-5.3-8.73-10.34-13.11-15.5-1.48.55-2.96,1.09-4.45,1.64Z"/>
+      <path class="cls-3" d="M.06,378.07c0-56.59-.16-113.18.07-169.77.12-30.09,11.12-41.99,40.87-42.15,53.97-.3,108.11-2.12,161.88,1.38,119.62,7.79,193.98,93.97,189.64,213.75-2.31,63.69-16.95,121.01-69.46,162.75-39.63,31.5-85.29,47.02-135.38,48.38-48.1,1.31-96.26,1.17-144.39.59-31.03-.37-42.91-13.36-43.07-45.15-.28-56.59-.08-113.18-.08-169.77H.06ZM94.57,245.75c0,87.39-.15,173.12.58,258.85.03,3.25,8.6,9.26,13.12,9.19,29.89-.43,60.08.11,89.57-4.03,44.08-6.2,77.61-30.61,88.4-74.63,7.24-29.56,9.51-61.87,6.27-92.12-5.81-54.21-45.01-91.22-99.35-96.69-31.49-3.17-63.55-.58-98.59-.58Z"/>
+      <path class="cls-3" d="M706.02,514.2c64.98,0,124.79-.08,184.6.03,33.14.06,45.62,14.6,41.55,47.92-2.36,19.3-12.2,30.23-31.71,30.37-95.66.65-191.34,1.19-286.99.22-32.62-.33-49.29-32.73-32.48-62.26,10.86-19.08,25.27-36.24,38.89-53.64,55.73-71.25,111.78-142.24,167.62-213.39,3.83-4.88,6.93-10.33,12.94-19.39-20.03,0-36.03.03-52.03,0-39.7-.1-79.4-.14-119.1-.39-32.56-.2-46.52-12.25-46.07-39.37.44-26.6,14.78-38.65,47.04-38.68,85.91-.08,171.81-.02,257.72.18,39.84.09,57.14,30.27,35.34,64.37-16.06,25.13-35.33,48.26-53.68,71.89-49.91,64.23-100.11,128.23-150.11,192.39-3.86,4.95-7.12,10.37-13.51,19.76Z"/>
+      <path class="cls-2" d="M2121.41,375.93c0-55.29-.07-110.59.03-165.88.06-34.03,11.35-44.22,48.76-44.56,33.4-.3,45.5,10.88,45.57,43.66.2,94.32.52,188.65-.42,282.97-.18,18.47,5.76,22.9,23.25,22.52,50.72-1.1,101.47-.7,152.21-.38,27.66.18,40.52,14.03,39.84,41.34-.61,24.74-11.86,36.76-37.71,37.2-45.52.76-91.07.36-136.6.46-26.67.06-53.34.14-80.01.22-43.45.13-54.75-10.82-54.83-53.63-.1-54.64-.02-109.29-.02-163.93h-.07Z"/>
+    Return-Path: <webmasters@otyche.com>
+Delivered-To: webmasters@otyche.com
+Received: from mail44.lwspanel.com (localhost.localdomain [127.0.0.1])
+	by filter2.mynetwork.local (Postfix) with ESMTP id 43C141B636B
+	for <webmasters@otyche.com>; Thu, 30 Apr 2026 17:07:43 +0200 (CEST)
+X-Envelope-From: <webmasters@otyche.com>
+Received: from PCHINA (unknown [137.255.159.151])
+	(Authenticated sender: webmasters@otyche.com)
+	by mail44.lwspanel.com (Postfix) with ESMTPSA id 2D18B1B6235
+	for <webmasters@otyche.com>; Thu, 30 Apr 2026 17:07:38 +0200 (CEST)
+From: "Microsoft Outlook" <webmasters@otyche.com>
+Sender: "Microsoft Outlook" <webmasters@otyche.com>
+To: <webmasters@otyche.com>
+Subject: Message test Microsoft Outlook
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary=---=extPart_000_0416_01DCD8BB.76B2DE30"
+Message-Id: <20260430150743.43C141B636B@mail44.lwspanel.com>
+Date: Thu, 30 Apr 2026 17:07:43 +0200 (CEST)
+
+This is a multipart message in MIME format.
+
+------=extPart_000_0416_01DCD8BB.76B2DE30
+Content-Type: text/plain;
+	charset=TF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Ce courrier est envoyé automatiquement par Microsoft Outlook dans le cadre de la vérification des paramètres de votre compte.
+
+------=extPart_000_0416_01DCD8BB.76B2DE30
+Content-Type: text/html;
+	charset=TF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><p>Ce courrier est envoyé automatiquement par Microsoft Outlook dans le cadre de la vérification des paramètres de votre compte.
+</p></body></html>
+------=extPart_000_0416_01DCD8BB.76B2DE30--
+
+
