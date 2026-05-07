@@ -28,12 +28,6 @@
   * { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
   body { overflow-x: hidden; transition: background-color 0.3s, color 0.3s; }
 
-  @font-face {
-    font-family: 'GoldPlay';
-    src: local('Poppins'), local('poppins');
-    font-weight: bold;
-  }
-
   html.dark body { background: #0f1117; color: #e2e8f0; }
   html.dark .dm-bg { background: #1a1f2e; }
   html.dark .dm-bg-2 { background: #141824; }
@@ -44,9 +38,6 @@
   html.dark .navbar-light { background: rgba(15,17,23,0.9); }
   html.dark .gradient-hero { background: linear-gradient(135deg, #0f2419 0%, #1a1208 100%); }
   html.dark .feature-card { background: #1e2535; }
-  html.dark .testimonial-card-1 { background: linear-gradient(135deg, #0d1f13 0%, #1e2535 100%); border-color: #1a4731; }
-  html.dark .testimonial-card-2 { background: linear-gradient(135deg, #1f1008 0%, #1e2535 100%); border-color: #7c2d12; }
-  html.dark .testimonial-card-3 { background: linear-gradient(135deg, #0d1f13 0%, #1f1008 100%); border-color: #1a4731; }
   html.dark .stat-bg-1 { background: linear-gradient(135deg, #0d1f13, #1a2514); }
   html.dark .stat-bg-2 { background: linear-gradient(135deg, #1f1008, #2a1a05); }
   html.dark .stat-bg-3 { background: linear-gradient(135deg, #0d1f13, #1f1008); }
@@ -64,7 +55,6 @@
   @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)} }
   @keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
   @keyframes walkAcross { 0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))} }
-  @keyframes footstep { 0%{opacity:0;transform:scale(0.5)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.2)} }
   @keyframes pulseRing { 0%{transform:scale(0.8);opacity:0.8}100%{transform:scale(1.5);opacity:0} }
   @keyframes drawPath { to{stroke-dashoffset:0} }
   @keyframes bounceFade { 0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(8px);opacity:0.6} }
@@ -77,6 +67,72 @@
   @keyframes shimmer {
     0% { transform: translateX(-100%) skewX(-15deg); }
     100% { transform: translateX(250%) skewX(-15deg); }
+  }
+
+  /* ===== CARD CLICK ANIMATIONS ===== */
+  @keyframes cardBurst {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+    30% { transform: scale(1.07) rotate(-1deg); box-shadow: 0 0 0 20px rgba(22,163,74,0.15); }
+    60% { transform: scale(0.97) rotate(1deg); box-shadow: 0 0 0 35px rgba(22,163,74,0); }
+    100% { transform: scale(1) rotate(0deg); box-shadow: none; }
+  }
+  @keyframes cardBurstOrange {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249,115,22,0); }
+    30% { transform: scale(1.07) rotate(1deg); box-shadow: 0 0 0 20px rgba(249,115,22,0.15); }
+    60% { transform: scale(0.97) rotate(-1deg); box-shadow: 0 0 0 35px rgba(249,115,22,0); }
+    100% { transform: scale(1) rotate(0deg); box-shadow: none; }
+  }
+  @keyframes iconSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(360deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  @keyframes iconBounce {
+    0%,100% { transform: scale(1) translateY(0); }
+    30% { transform: scale(1.4) translateY(-6px); }
+    60% { transform: scale(0.9) translateY(2px); }
+  }
+  @keyframes particleFly {
+    0% { opacity:1; transform: translate(0,0) scale(1); }
+    100% { opacity:0; transform: translate(var(--dx), var(--dy)) scale(0); }
+  }
+  @keyframes rippleOut {
+    0% { transform: scale(0); opacity:0.8; }
+    100% { transform: scale(4); opacity:0; }
+  }
+  @keyframes textPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  .feature-card.clicked { animation: cardBurst 0.6s cubic-bezier(0.175,0.885,0.32,1.275) forwards; }
+  .feature-card.clicked-orange { animation: cardBurstOrange 0.6s cubic-bezier(0.175,0.885,0.32,1.275) forwards; }
+  .feature-card.clicked .card-icon,
+  .feature-card.clicked-orange .card-icon { animation: iconBounce 0.5s ease forwards; }
+  .feature-card.clicked h3 { animation: textPop 0.4s ease forwards; }
+
+  .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(22,163,74,0.3), transparent);
+    pointer-events: none;
+    animation: rippleOut 0.7s ease forwards;
+    width: 60px; height: 60px;
+    margin-left: -30px; margin-top: -30px;
+    z-index: 20;
+  }
+  .ripple-orange {
+    background: radial-gradient(circle, rgba(249,115,22,0.3), transparent);
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    width: 8px; height: 8px;
+    pointer-events: none;
+    animation: particleFly 0.7s ease forwards;
+    z-index: 20;
   }
 
   .btn-nav-download {
@@ -116,7 +172,7 @@
   .btn-orange { background:linear-gradient(135deg,#f97316,#fb923c); transition:all 0.3s ease; }
   .btn-orange:hover { transform:translateY(-3px); box-shadow:0 15px 30px rgba(249,115,22,0.4); }
 
-  .feature-card { transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); background:white; }
+  .feature-card { transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); background:white; cursor:pointer; position:relative; overflow:hidden; }
   .feature-card:hover { transform:translateY(-10px) scale(1.02); box-shadow:0 25px 50px rgba(0,0,0,0.15); }
 
   .stat-circle { position:relative; overflow:hidden; }
@@ -138,9 +194,6 @@
   .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease; }
   .mobile-menu.active { transform:translateX(0); }
 
-  .testimonial-card { transition:all 0.3s ease; }
-  .testimonial-card:hover { transform:translateY(-8px); }
-
   .bg-circle { position:absolute; border-radius:50%; filter:blur(60px); opacity:0.4; z-index:0; }
 
   #themeToggle {
@@ -160,7 +213,7 @@
     background: linear-gradient(135deg, #16a34a, #f97316);
     border: none;
     box-shadow: -3px 0 15px rgba(22,163,74,0.3);
-    font-family: 'GoldPlay', 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
   }
   #themeToggle:hover { width: 46px; box-shadow: -4px 0 20px rgba(22,163,74,0.5); }
@@ -182,45 +235,117 @@
 
   .footer-compact { padding:20px 0; }
 
-  .stars-container:hover .star-btn { color:#fbbf24; }
-  .stars-container .star-btn:hover ~ .star-btn { color:#d1d5db; }
-
   /* ==========================================
-     HERO LAYOUT : flex sur mobile/tablette, grid sur desktop
-     Ordre mobile : texte → téléphone → boutons → avatars
+     HERO LAYOUT : 4 blocs — ordre unifié mobile + desktop
+     1. Texte  2. Boutons  3. Téléphone  4. Avatars
      ========================================== */
   .hero-layout {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
   }
-  .hero-text      { order: 1; }
-  .hero-phone     { order: 2; }
-  .hero-buttons   { order: 3; }
-  .hero-avatars   { order: 4; }
+  .hero-text    { order: 1; }
+  .hero-buttons { order: 2; }
+  .hero-phone   { order: 3; }
+  .hero-avatars { order: 4; }
 
   @media (min-width: 1024px) {
     .hero-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 2.5rem;
-      align-items: center;
+      grid-template-rows: auto auto auto;
+      gap: 2rem 3rem;
+      align-items: start;
     }
-    .hero-text    { grid-column: 1; grid-row: 1; align-self: end; }
-    .hero-avatars { grid-column: 1; grid-row: 2; align-self: start; }
-    .hero-phone   { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
-    .hero-buttons { display: none !important; }
+    /* Colonne gauche : texte (row1) → boutons (row2) → avatars (row3) */
+    .hero-text    { grid-column: 1; grid-row: 1; }
+    .hero-buttons { grid-column: 1; grid-row: 2; display: flex !important; }
+    .hero-avatars { grid-column: 1; grid-row: 3; }
+    /* Colonne droite : téléphone sur toutes les rows */
+    .hero-phone   { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
   }
   @media (min-width: 1280px) {
-    .hero-layout { gap: 4rem; }
+    .hero-layout { gap: 2rem 4rem; }
   }
 
   /* ==========================================
-     MOBILE-ONLY ADJUSTMENTS (max-width: 767px)
+     slider des temoignages
      ========================================== */
-  @media (max-width: 767px) {
+  .testi-slider-wrap { overflow: hidden; position: relative; }
+  .testi-track {
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.77,0,0.175,1);
+    will-change: transform;
+  }
+  .testi-slide {
+    min-width: 100%;
+    padding: 0 4px;
+    box-sizing: border-box;
+  }
 
+  @keyframes slideInLeft {
+    from { opacity:0; transform: translateX(-40px) scale(0.97); }
+    to   { opacity:1; transform: translateX(0) scale(1); }
+  }
+  @keyframes slideInRight {
+    from { opacity:0; transform: translateX(40px) scale(0.97); }
+    to   { opacity:1; transform: translateX(0) scale(1); }
+  }
+  @keyframes fadeSlide {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .testi-slide.animate-in-left  { animation: slideInLeft  0.5s ease forwards; }
+  .testi-slide.animate-in-right { animation: slideInRight 0.5s ease forwards; }
+
+  .dot-btn {
+    width: 10px; height: 10px;
+    border-radius: 99px;
+    background: #d1d5db;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .dot-btn.active {
+    background: linear-gradient(135deg, #16a34a, #f97316);
+    width: 28px;
+  }
+
+  .testi-arrow {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 2px solid #e5e7eb;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+  html.dark .testi-arrow { background: #1e2535; border-color: #2d3748; }
+  .testi-arrow:hover {
+    background: linear-gradient(135deg, #16a34a, #f97316);
+    border-color: transparent;
+    transform: scale(1.08);
+  }
+  .testi-arrow:hover svg { color: white; }
+  .testi-arrow svg { color: #6b7280; transition: color 0.25s; }
+
+  /* auto-progress bar */
+  @keyframes progressBar {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+  .testi-progress-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #16a34a, #f97316);
+    border-radius: 99px;
+    animation: progressBar 5s linear forwards;
+  }
+
+  /* ==========================================
+     ajustement mobile
+     ========================================== */
+  @media (max-width:767px) {
     #navbar .container {
       position: relative;
       justify-content: center !important;
@@ -252,34 +377,14 @@
       justify-content: center !important;
       gap: 12px !important;
     }
-    footer .container > .flex > div.flex-1 .flex a {
-      font-size: 0.7rem !important;
-      white-space: nowrap;
-    }
-    footer .w-8.h-8 {
-      width: 26px !important;
-      height: 26px !important;
-    }
-    footer .w-8.h-8 svg {
-      width: 12px !important;
-      height: 12px !important;
-    }
-    footer .container > .flex > div.flex-shrink-0:last-child {
-      align-items: center !important;
-      width: 100%;
-    }
-    footer .container > .flex > div.flex-shrink-0:last-child .flex.flex-wrap {
-      justify-content: center !important;
-    }
+    footer .container > .flex > div.flex-1 .flex a { font-size: 0.7rem !important; white-space: nowrap; }
+    footer .w-8.h-8 { width: 26px !important; height: 26px !important; }
+    footer .w-8.h-8 svg { width: 12px !important; height: 12px !important; }
+    footer .container > .flex > div.flex-shrink-0:last-child { align-items: center !important; width: 100%; }
+    footer .container > .flex > div.flex-shrink-0:last-child .flex.flex-wrap { justify-content: center !important; }
 
-    #download .flex a {
-      padding: 8px 14px !important;
-      border-radius: 10px !important;
-    }
-    #download .flex a svg {
-      width: 18px !important;
-      height: 18px !important;
-    }
+    #download .flex a { padding: 8px 14px !important; border-radius: 10px !important; }
+    #download .flex a svg { width: 18px !important; height: 18px !important; }
     #download .flex a div .text-xs { font-size: 0.6rem !important; }
     #download .flex a div .text-sm { font-size: 0.75rem !important; }
     #download h2 { font-size: 1.1rem !important; }
@@ -294,9 +399,8 @@
   <span id="themeIcon">🌙</span>
 </button>
 
-<!-- ===== SCROLL ARROW ===== -->
-<button id="scrollArrow" aria-label="Défiler"
-  class="btn-green text-white">
+<!-- ===== scroll fleche ===== -->
+<button id="scrollArrow" aria-label="Défiler" class="btn-green text-white">
   <svg id="arrowIcon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
   </svg>
@@ -316,16 +420,11 @@
     <div class="hidden lg:flex items-center space-x-8">
       <a href="#accueil" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Accueil<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
       <a href="#fonctionnalites" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Fonctionnalités<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
-      <a href="#temoignages" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Témoignages
-        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
-       <a href="#resssources" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Ressources
-        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
+      <a href="#temoignages" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Témoignages<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
+      <a href="#resssources" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Ressources<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
       <a href="#contact" class="text-gray-700 dark:text-slate-300 hover:text-dizo-green font-medium transition relative group">Contact<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-dizo-green to-dizo-orange group-hover:w-full transition-all"></span></a>
-
       <a href="#download" class="btn-nav-download text-white px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 no-underline">
-        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-6 2h12v2H6z"/>
-        </svg>
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-6 2h12v2H6z"/></svg>
         <span>Télécharger</span>
         <span class="bg-white/25 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">GRATUIT</span>
       </a>
@@ -376,13 +475,13 @@
 
   <div class="container mx-auto px-4 lg:px-8 relative z-10">
 
-    <!-- NOUVEAU LAYOUT : 4 blocs indépendants -->
+    
     <div class="hero-layout min-h-[80vh]">
 
-      <!-- 1️⃣ TEXTE + DESCRIPTION -->
+      <!-- TEXTE + DESCRIPTION -->
       <div class="hero-text reveal">
         <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl font-extrabold leading-tight mb-5">
-         Marchez, <br>
+          Marchez, <br>
           <span class="gradient-text">Progressez Ensemble</span>
         </h1>
         <p class="text-base sm:text-lg text-gray-700 dark:text-slate-300 max-w-xl leading-relaxed">
@@ -394,7 +493,33 @@
         </p>
       </div>
 
-      <!-- 2️⃣ TÉLÉPHONE -->
+      <!-- BOUTONS DE TÉLÉCHARGEMENT (visible partout) -->
+<div class="hero-buttons reveal flex justify-center md:justify-start px-4 md:px-0">
+  <div class="flex flex-row gap-3 sm:gap-4 justify-center md:justify-start items-center w-full md:w-auto max-w-md mx-auto md:mx-0">
+    <a href="https://play.google.com/store/apps/details?id=com.dizonli.app" target="_blank"
+       class="btn-green text-white rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg w-[200px] h-[50px]">
+      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+      </svg>
+      <div class="text-left">
+        <div class="text-xs opacity-90 leading-none mb-0.5">Télécharger sur</div>
+        <div class="text-sm font-extrabold leading-tight">Google Play</div>
+      </div>
+    </a>
+    <a href="https://apps.apple.com/bj/app/dizonli/id6756833340?l=fr-FR" target="_blank"
+       class="btn-orange text-white rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg w-[200px] h-[50px]">
+      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+      </svg>
+      <div class="text-left">
+        <div class="text-xs opacity-90 leading-none mb-0.5">Télécharger sur</div>
+        <div class="text-sm font-extrabold leading-tight">App Store</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+      <!--  TÉLÉPHONE -->
       <div class="hero-phone relative flex justify-center reveal">
         <div class="relative" style="animation:float 4s ease-in-out infinite;">
           <div class="relative w-[270px] sm:w-[300px] bg-[#1a1a1a] rounded-[3rem] shadow-2xl glow overflow-hidden" style="height:620px;">
@@ -452,10 +577,6 @@
                     <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
                     <span class="text-white text-xs font-semibold">Pas Aujourd'hui</span>
                   </div>
-                  <div class="flex gap-2">
-                    <svg class="w-3.5 h-3.5 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-                    <svg class="w-3.5 h-3.5 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-                  </div>
                 </div>
                 <div class="text-center my-1">
                   <div class="text-white font-black text-3xl leading-tight" id="phoneSteps">8 452</div>
@@ -494,45 +615,19 @@
               <div class="mx-3 mt-3 bg-[#1e1e1e] rounded-2xl p-3">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-white text-xs font-semibold">Cette Semaine</span>
-                  <div class="flex items-center gap-2">
-                    <svg class="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                    <svg class="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                    <svg class="w-3.5 h-3.5 text-[#4ade80]" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
-                    <svg class="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-                  </div>
-                </div>
-                <div class="flex gap-1.5 mb-3">
-                  <div class="flex items-center gap-1 bg-[#4ade80] rounded-full px-2.5 py-1">
-                    <svg class="w-2.5 h-2.5 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                    <svg class="w-2.5 h-2.5 text-black" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
-                    <span class="text-black text-[9px] font-bold">Pas</span>
-                  </div>
-                  <div class="flex items-center gap-1 bg-[#2a2a2a] rounded-full px-2.5 py-1">
-                    <svg class="w-2.5 h-2.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
-                    <span class="text-gray-400 text-[9px]">Calories</span>
-                  </div>
-                  <div class="flex items-center gap-1 bg-[#2a2a2a] rounded-full px-2.5 py-1">
-                    <svg class="w-2.5 h-2.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
-                    <span class="text-gray-400 text-[9px]">Distance</span>
-                  </div>
                 </div>
                 <div class="relative" style="height:90px;">
                   <div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[7px] text-gray-500 pr-1" style="width:28px;">
                     <span>10k</span><span>7.5k</span><span>5k</span><span>2.5k</span><span>0</span>
                   </div>
-                  <div class="absolute inset-y-0 left-7 right-0 flex flex-col justify-between pointer-events-none">
-                    <div class="w-full h-px bg-[#333]"></div><div class="w-full h-px bg-[#333]"></div>
-                    <div class="w-full h-px bg-[#333]"></div><div class="w-full h-px bg-[#333]"></div>
-                    <div class="w-full h-px bg-[#333]"></div>
-                  </div>
-                  <div class="absolute inset-y-0 left-7 right-0 flex items-end justify-around pb-0 gap-1" id="chartBars">
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:62%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:80%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:45%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:95%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:70%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar" style="height:55%;opacity:0.7;"></div></div>
-                    <div class="flex flex-col items-center gap-0.5 flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm chart-bar border border-white/40" style="height:84%;"></div></div>
+                  <div class="absolute inset-y-0 left-7 right-0 flex items-end justify-around gap-1">
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:62%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:80%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:45%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:95%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:70%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm" style="height:55%;opacity:0.7;"></div></div>
+                    <div class="flex-1"><div class="w-full bg-[#4ade80] rounded-t-sm border border-white/40" style="height:84%;"></div></div>
                   </div>
                 </div>
                 <div class="flex justify-around pl-7 mt-1">
@@ -562,37 +657,7 @@
         </div>
       </div>
 
-      <!--  BOUTONS DE TÉLÉCHARGEMENT (mobile/tablette uniquement) -->
-     <div class="hero-buttons reveal flex justify-center">
-  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-    <a href="https://play.google.com/store/apps/details?id=com.dizonli.app" target="_blank"
-       class="btn-green text-white rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg w-[200px] h-[50px]">
-      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-      </svg>
-      <div class="text-left">
-        <div class="text-xs opacity-90 leading-none mb-0.5">Télécharger sur</div>
-        <div class="text-sm font-extrabold leading-tight">Google Play</div>
-      </div>
-    </a>
-
-    <a href="https://apps.apple.com/bj/app/dizonli/id6756833340?l=fr-FR" target="_blank"
-       class="btn-orange text-white rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg w-[200px] h-[50px]">
-      <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
-      </svg>
-      <div class="text-left">
-        <div class="text-xs opacity-90 leading-none mb-0.5">Télécharger sur</div>
-        <div class="text-sm font-extrabold leading-tight">App Store</div>
-      </div>
-    </a>
-  </div>
-</div>
-
-
-
-
-      <!--  AVATARS / UTILISATEURS -->
+      <!-- AVATARS / UTILISATEURS -->
       <div class="hero-avatars reveal">
         <div class="flex items-center gap-4 sm:gap-6">
           <div class="flex -space-x-3">
@@ -617,7 +682,6 @@
 
 <!-- ===== STATS ===== -->
 <section class="py-16 sm:py-20 bg-white dark:bg-[#0f1117] about-section">
-
   <div class="container mx-auto px-4 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal">
       <span class="inline-block bg-green-50 dark:bg-green-900/30 text-dizo-green px-4 py-2 rounded-full font-semibold text-sm mb-4">À PROPOS DE DIZONLI</span>
@@ -676,10 +740,12 @@
       <p class="text-base sm:text-lg text-gray-600 dark:text-slate-400">Tout ce dont vous avez besoin pour rester actif et motivé chaque jour.</p>
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-10">
-      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg relative overflow-hidden group reveal">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-200 to-green-100 dark:from-green-900/30 dark:to-green-800/10 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
-        <div class="relative">
-          <div class="w-14 h-14 bg-gradient-to-br from-dizo-green to-dizo-green-light rounded-2xl flex items-center justify-center mb-5 shadow-lg">
+
+      <!-- Carte 1 — Podomètre -->
+      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg group reveal" id="card1">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-200 to-green-100 dark:from-green-900/30 dark:to-green-800/10 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-gradient-to-br from-dizo-green to-dizo-green-light rounded-2xl flex items-center justify-center mb-5 shadow-lg card-icon">
             <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-2 dark:text-slate-200">Podomètre Intelligent</h3>
@@ -687,10 +753,12 @@
           <div class="flex items-center text-dizo-green font-semibold text-sm"><span>En savoir plus</span><svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
         </div>
       </div>
-      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg relative overflow-hidden group reveal" style="transition-delay:0.15s;">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-200 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/10 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
-        <div class="relative">
-          <div class="w-14 h-14 bg-gradient-to-br from-dizo-orange to-dizo-orange-light rounded-2xl flex items-center justify-center mb-5 shadow-lg">
+
+      <!-- Carte 2 — Groupes -->
+      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg group reveal" id="card2" style="transition-delay:0.15s;">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-200 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/10 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-gradient-to-br from-dizo-orange to-dizo-orange-light rounded-2xl flex items-center justify-center mb-5 shadow-lg card-icon">
             <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M16,4C18.21,4 20,5.79 20,8C20,10.21 18.21,12 16,12C13.79,12 12,10.21 12,8C12,5.79 13.79,4 16,4M16,14C20.42,14 24,15.79 24,18V20H8V18C8,15.79 11.58,14 16,14M9,5C10.66,5 12,6.34 12,8C12,9.66 10.66,11 9,11C7.34,11 6,9.66 6,8C6,6.34 7.34,5 9,5M9,12C10.07,12 11.09,12.13 12,12.36C10.78,13.74 10,15.79 10,18V20H0V18C0,15.79 4.03,14 9,14V12Z"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-2 dark:text-slate-200">Groupes Communautaires</h3>
@@ -698,10 +766,12 @@
           <div class="flex items-center text-dizo-orange font-semibold text-sm"><span>En savoir plus</span><svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
         </div>
       </div>
-      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg relative overflow-hidden group reveal sm:col-span-2 md:col-span-1" style="transition-delay:0.3s;">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-200 to-orange-100 dark:from-green-900/20 dark:to-orange-900/20 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
-        <div class="relative">
-          <div class="w-14 h-14 bg-gradient-to-br from-dizo-green to-dizo-orange rounded-2xl flex items-center justify-center mb-5 shadow-lg">
+
+      <!-- Carte 3 — Podothons -->
+      <div class="feature-card dark:bg-[#1e2535] rounded-3xl p-7 shadow-lg group reveal sm:col-span-2 md:col-span-1" id="card3" style="transition-delay:0.3s;">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-200 to-orange-100 dark:from-green-900/20 dark:to-orange-900/20 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-gradient-to-br from-dizo-green to-dizo-orange rounded-2xl flex items-center justify-center mb-5 shadow-lg card-icon">
             <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-2 dark:text-slate-200">Événements Podothons</h3>
@@ -710,10 +780,11 @@
         </div>
       </div>
     </div>
+    <p class="text-center text-sm text-gray-400 dark:text-slate-500 italic">💡 Cliquez sur une carte pour voir l'animation</p>
   </div>
 </section>
 
-<!-- ===== TÉMOIGNAGES ===== -->
+<!-- ===== TÉMOIGNAGES — SLIDER ANIMÉ ===== -->
 <section id="temoignages" class="py-16 sm:py-20 bg-white dark:bg-[#0f1117]">
   <div class="container mx-auto px-4 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal">
@@ -721,40 +792,99 @@
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-5">Ils <span class="gradient-text">marchent</span> avec Dizonli</h2>
       <p class="text-base sm:text-lg text-gray-600 dark:text-slate-400">Découvrez ce que nos utilisateurs disent de leur expérience.</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-5 mb-16">
-      <div class="testimonial-card testimonial-card-1 bg-gradient-to-br from-green-50 to-white dark:from-[#0d1f13] dark:to-[#1e2535] p-6 rounded-3xl shadow-md border border-green-100 dark:border-green-900 reveal">
-        <div class="flex text-yellow-400 mb-3 text-sm">★★★★★</div>
-        <p class="text-gray-700 dark:text-slate-300 mb-5 italic leading-relaxed text-sm">Depuis que j'utilise DIZONLI, je fais enfin mes 5000 pas par jour. Le suivi est simple, les défis hebdomadaires me motivent, et marcher avec mon équipe rend tout beaucoup plus fun.</p>
-        <div class="flex items-center">
-          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold mr-3">A</div>
-          <div><div class="font-bold text-gray-800 dark:text-slate-200 text-sm">Aurore K. Dossou</div><div class="text-xs text-gray-500 dark:text-slate-400">Chargée de programme, Ministère de la Santé</div></div>
+
+    <!-- SLIDER -->
+    <div class="max-w-2xl mx-auto reveal mb-16">
+      <!-- Progress bar -->
+      <div class="h-1 bg-gray-100 dark:bg-gray-800 rounded-full mb-6 overflow-hidden">
+        <div id="testiProgress" class="testi-progress-bar"></div>
+      </div>
+
+      <!-- Track wrapper -->
+      <div class="testi-slider-wrap rounded-3xl">
+        <div class="testi-track" id="testiTrack">
+
+          <!-- Slide 1 -->
+          <div class="testi-slide">
+            <div class="bg-gradient-to-br from-green-50 to-white dark:from-[#0d1f13] dark:to-[#1e2535] p-7 sm:p-9 rounded-3xl shadow-md border border-green-100 dark:border-green-900">
+              <div class="flex text-yellow-400 mb-4 text-lg">★★★★★</div>
+              <p class="text-gray-700 dark:text-slate-300 mb-6 italic leading-relaxed text-base">"Depuis que j'utilise DIZONLI, je fais enfin mes 5000 pas par jour. Le suivi est simple, les défis hebdomadaires me motivent, et marcher avec mon équipe rend tout beaucoup plus fun."</p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold mr-4 text-lg flex-shrink-0">A</div>
+                <div>
+                  <div class="font-bold text-gray-800 dark:text-slate-200">Aurore K. Dossou</div>
+                  <div class="text-sm text-gray-500 dark:text-slate-400">Chargée de programme, Ministère de la Santé</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="testi-slide">
+            <div class="bg-gradient-to-br from-orange-50 to-white dark:from-[#1f1008] dark:to-[#1e2535] p-7 sm:p-9 rounded-3xl shadow-md border border-orange-100 dark:border-orange-900">
+              <div class="flex text-yellow-400 mb-4 text-lg">★★★★★</div>
+              <p class="text-gray-700 dark:text-slate-300 mb-6 italic leading-relaxed text-base">"Nous avons lancé un Podothon interne et l'engagement des employés a été incroyable. Les classements et les certificats ont vraiment stimulé la participation."</p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold mr-4 text-lg flex-shrink-0">S</div>
+                <div>
+                  <div class="font-bold text-gray-800 dark:text-slate-200">Serge A.</div>
+                  <div class="text-sm text-gray-500 dark:text-slate-400">Directeur RH, Google</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="testi-slide">
+            <div class="bg-gradient-to-br from-green-50 to-orange-50 dark:from-[#0d1f13] dark:to-[#1f1008] p-7 sm:p-9 rounded-3xl shadow-md border border-green-100 dark:border-green-900">
+              <div class="flex text-yellow-400 mb-4 text-lg">★★★★★</div>
+              <p class="text-gray-700 dark:text-slate-300 mb-6 italic leading-relaxed text-base">"Mes collègues et moi avons formé un groupe au bureau. On marche ensemble pendant les pauses, c'est devenu notre rituel quotidien !"</p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-orange-500 flex items-center justify-center text-white font-bold mr-4 text-lg flex-shrink-0">J</div>
+                <div>
+                  <div class="font-bold text-gray-800 dark:text-slate-200">Jules S.</div>
+                  <div class="text-sm text-gray-500 dark:text-slate-400">Développeur Web</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="testi-slide">
+            <div class="bg-gradient-to-br from-orange-50 to-green-50 dark:from-[#1f1008] dark:to-[#0d1f13] p-7 sm:p-9 rounded-3xl shadow-md border border-orange-100 dark:border-orange-900">
+              <div class="flex text-yellow-400 mb-4 text-lg">★★★★★</div>
+              <p class="text-gray-700 dark:text-slate-300 mb-6 italic leading-relaxed text-base">"L'interface est superbe et intuitive. Le podomètre est précis et les statistiques détaillées m'aident à comprendre mes progrès chaque jour."</p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-green-500 flex items-center justify-center text-white font-bold mr-4 text-lg flex-shrink-0">B</div>
+                <div>
+                  <div class="font-bold text-gray-800 dark:text-slate-200">Bénédicte K.</div>
+                  <div class="text-sm text-gray-500 dark:text-slate-400">Community Manager</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="testimonial-card testimonial-card-2 bg-gradient-to-br from-orange-50 to-white dark:from-[#1f1008] dark:to-[#1e2535] p-6 rounded-3xl shadow-md border border-orange-100 dark:border-orange-900 reveal" style="transition-delay:0.1s;">
-        <div class="flex text-yellow-400 mb-3 text-sm">★★★★★</div>
-        <p class="text-gray-700 dark:text-slate-300 mb-5 italic leading-relaxed text-sm">Nous avons lancé un Podothon interne et l'engagement des employés a été incroyable. Les classements et les certificats ont vraiment stimulé la participation.</p>
-        <div class="flex items-center">
-          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold mr-3">S</div>
-          <div><div class="font-bold text-gray-800 dark:text-slate-200 text-sm">Serge A.</div><div class="text-xs text-gray-500 dark:text-slate-400">Directeur RH, Google</div></div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-between mt-6">
+        <button class="testi-arrow" id="testiPrev" aria-label="Précédent">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="flex gap-2 items-center" id="testiDots">
+          <button class="dot-btn active" data-idx="0"></button>
+          <button class="dot-btn" data-idx="1"></button>
+          <button class="dot-btn" data-idx="2"></button>
+          <button class="dot-btn" data-idx="3"></button>
         </div>
-      </div>
-      <div class="testimonial-card testimonial-card-3 bg-gradient-to-br from-green-50 to-orange-50 dark:from-[#0d1f13] dark:to-[#1f1008] p-6 rounded-3xl shadow-md border border-green-100 dark:border-green-900 reveal" style="transition-delay:0.2s;">
-        <div class="flex text-yellow-400 mb-3 text-sm">★★★★★</div>
-        <p class="text-gray-700 dark:text-slate-300 mb-5 italic leading-relaxed text-sm">Mes collègues et moi avons formé un groupe au bureau. On marche ensemble pendant les pauses, c'est devenu notre rituel quotidien !</p>
-        <div class="flex items-center">
-          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-green-500 to-orange-500 flex items-center justify-center text-white font-bold mr-3">J</div>
-          <div><div class="font-bold text-gray-800 dark:text-slate-200 text-sm">Jules S.</div><div class="text-xs text-gray-500 dark:text-slate-400">Développeur Web</div></div>
-        </div>
-      </div>
-      <div class="testimonial-card bg-gradient-to-br from-orange-50 to-green-50 dark:from-[#1f1008] dark:to-[#0d1f13] p-6 rounded-3xl shadow-md border border-orange-100 dark:border-orange-900 reveal" style="transition-delay:0.3s;">
-        <div class="flex text-yellow-400 mb-3 text-sm">★★★★★</div>
-        <p class="text-gray-700 dark:text-slate-300 mb-5 italic leading-relaxed text-sm">L'interface est superbe et intuitive. Le podomètre est précis et les statistiques détaillées m'aident à comprendre mes progrès chaque jour.</p>
-        <div class="flex items-center">
-          <div class="w-11 h-11 rounded-full bg-gradient-to-br from-orange-500 to-green-500 flex items-center justify-center text-white font-bold mr-3">B</div>
-          <div><div class="font-bold text-gray-800 dark:text-slate-200 text-sm">Bénédicte K.</div><div class="text-xs text-gray-500 dark:text-slate-400">Community Manager</div></div>
-        </div>
+        <button class="testi-arrow" id="testiNext" aria-label="Suivant">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </div>
+
+    <!-- Formulaire témoignage -->
     <div class="max-w-2xl mx-auto reveal">
       <div class="form-card bg-white dark:bg-[#1e2535] rounded-3xl p-7 sm:p-10 shadow-xl border border-gray-100 dark:border-[#2d3748]">
         <div class="text-center mb-7">
@@ -808,7 +938,7 @@
   </div>
 </section>
 
-<!-- ===== DOWNLOAD BANNER ===== -->
+<!-- ===== banner de téléchargement a la fin  ===== -->
 <section id="download" class="py-7 relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-dizo-green via-green-600 to-dizo-orange"></div>
   <div class="container mx-auto px-4 lg:px-8 relative z-10">
@@ -835,27 +965,20 @@
 <footer id="contact" class="bg-gray-950 dark:bg-[#060810] text-white">
   <div class="container mx-auto px-4 lg:px-8 py-7">
     <div class="flex items-start justify-between gap-6 flex-wrap">
-
       <a href="#accueil" class="flex items-center flex-shrink-0">
         <img src="assets/logo.svg" alt="Logo Dizonli" class="w-20 h-10"/>
       </a>
-
       <div class="flex flex-col items-center gap-2 flex-1">
         <div class="flex flex-wrap justify-center gap-x-5 gap-y-1">
           <a href="#" class="text-gray-500 text-sm hover:text-dizo-green transition">Confidentialité</a>
           <a href="#" class="text-gray-500 text-sm hover:text-dizo-green transition">CGU</a>
           <a href="#" class="text-gray-500 text-sm hover:text-dizo-green transition">Mentions légales</a>
         </div>
-        
       </div>
-
       <div class="flex flex-col items-end gap-3 flex-shrink-0">
         <div class="flex items-center gap-2 flex-wrap justify-end">
-    <a href="https://www.facebook.com/share/1EA2rfFcW3/" aria-label="Facebook" 
-   class="w-8 h-8 bg-gray-800 hover:bg-green-500 active:bg-green-600 rounded-full flex items-center justify-center transition hover:-translate-y-0.5">
-  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M17 2h-3a5 5 0 0 0-5 5v3H7v4h2v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  </svg>
+          <a href="https://www.facebook.com/share/1EA2rfFcW3/" aria-label="Facebook" class="w-8 h-8 bg-gray-800 hover:bg-green-500 active:bg-green-600 rounded-full flex items-center justify-center transition hover:-translate-y-0.5">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17 2h-3a5 5 0 0 0-5 5v3H7v4h2v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </a>
           <a href="https://www.instagram.com/dizonli?igsh=MWhjeml1ZDJvaXh6OQ==" aria-label="Instagram" class="w-8 h-8 bg-gray-800 hover:bg-dizo-orange rounded-full flex items-center justify-center transition hover:-translate-y-0.5">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -870,13 +993,13 @@
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.75 2h2.5c.2 1.7 1.4 3.1 3.05 3.4v2.6c-1.3-.05-2.55-.45-3.55-1.15v6.4c0 3.1-2.5 5.75-5.75 5.75S3.25 16.35 3.25 13.25s2.5-5.75 5.75-5.75c.25 0 .5.02.75.07v2.7c-.24-.08-.49-.12-.75-.12-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V2z"/></svg>
           </a>
           <a href="https://whatsapp.com/channel/0029VbBgoTs4IBhIx04Yt31o" aria-label="WhatsApp" class="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition hover:-translate-y-0.5">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.16 1.6 5.97L0 24l6.3-1.64a11.9 11.9 0 005.75 1.46h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.17-1.24-6.14-3.43-8.35zM12.06 21.3c-1.8 0-3.57-.48-5.13-1.4l-.37-.22-3.74.98.99-3.65-.24-.38a9.3 9.3 0 01-1.43-5c0-5.16 4.2-9.36 9.36-9.36 2.5 0 4.84.97 6.6 2.73a9.3 9.3 0 012.73 6.6c0 5.16-4.2 9.36-9.36 9.36zm5.2-7.03c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14s-.73.91-.9 1.1c-.16.19-.33.21-.6.07-.28-.14-1.17-.43-2.22-1.37-.82-.73-1.37-1.63-1.53-1.9-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.1-.23-.55-.47-.47-.64-.48h-.55c-.19 0-.5.07-.76.36s-1 1-.97 2.44c.03 1.44 1 2.83 1.14 3.03.14.19 1.97 3.01 4.78 4.22.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.66-.68 1.9-1.34.23-.66.23-1.23.16-1.34-.07-.1-.26-.16-.54-.3z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.16 1.6 5.97L0 24l6.3-1.64a11.9 11.9 0 005.75 1.46h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.17-1.24-6.14-3.43-8.35z"/></svg>
           </a>
           <a href="#" aria-label="YouTube" class="w-8 h-8 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition hover:-translate-y-0.5">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8zM9.6 15.5v-7l6.4 3.5-6.4 3.5z"/></svg>
           </a>
         </div>
-       <span class="text-gray-600 text-xs">© 2026 Dizonli. Tous droits réservés. </span>
+        <span class="text-gray-600 text-xs">© 2026 Dizonli. Tous droits réservés.</span>
       </div>
     </div>
   </div>
@@ -888,11 +1011,9 @@
   const html = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
-
   const savedTheme = localStorage.getItem('dizonli-theme') ||
     (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   if (savedTheme === 'dark') { html.classList.add('dark'); themeIcon.textContent = '☀️'; }
-
   themeToggle.addEventListener('click', () => {
     html.classList.toggle('dark');
     const isDark = html.classList.contains('dark');
@@ -902,9 +1023,7 @@
 
   // ---- NAVBAR ----
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
-  });
+  window.addEventListener('scroll', () => navbar.classList.toggle('navbar-scrolled', window.scrollY > 50));
 
   // ---- MOBILE MENU ----
   document.getElementById('mobileMenuBtn').addEventListener('click', () =>
@@ -919,7 +1038,6 @@
   const arrowIcon = document.getElementById('arrowIcon');
   const totalHeight = () => document.documentElement.scrollHeight - window.innerHeight;
   const isNearBottom = () => window.scrollY > totalHeight() * 0.7;
-
   function updateArrow() {
     scrollArrow.classList.toggle('visible', window.scrollY > 100);
     const goUp = isNearBottom();
@@ -962,7 +1080,7 @@
   }, { threshold: 0.5 });
   counters.forEach(c => counterObs.observe(c));
 
-  // ---- PHONE STEPS COUNTER ----
+  // ---- compter les pars ----
   const phoneSteps = document.getElementById('phoneSteps');
   const progressBar = document.getElementById('progressBar');
   const progressPct = document.getElementById('progressPct');
@@ -995,21 +1113,18 @@
     });
   });
 
-  // ---- TESTIMONIAL FORM ----
+  // ---- formulaire de temoignages  ----
   document.getElementById('submitTestimonial').addEventListener('click', () => {
     const prenom = document.getElementById('tPrenom').value.trim();
     const message = document.getElementById('tMessage').value.trim();
     const err = document.getElementById('formError');
-
     err.classList.add('hidden');
     if (!prenom) { err.textContent = '⚠️ Veuillez entrer votre prénom.'; err.classList.remove('hidden'); return; }
     if (!selectedRating) { err.textContent = '⚠️ Veuillez sélectionner une note.'; err.classList.remove('hidden'); return; }
     if (message.length < 20) { err.textContent = '⚠️ Votre témoignage doit faire au moins 20 caractères.'; err.classList.remove('hidden'); return; }
-
     document.getElementById('testimonialForm').classList.add('hidden');
     document.getElementById('formSuccess').classList.remove('hidden');
   });
-
   document.getElementById('newTestimonial').addEventListener('click', () => {
     document.getElementById('tPrenom').value = '';
     document.getElementById('tProfession').value = '';
@@ -1019,6 +1134,147 @@
     document.getElementById('formSuccess').classList.add('hidden');
     document.getElementById('testimonialForm').classList.remove('hidden');
   });
+
+  // =============================================
+  // ---- FEATURE CARDS CLICK ANIMATIONS ----
+  // =============================================
+  function spawnParticles(card, isGreen) {
+    const rect = card.getBoundingClientRect();
+    const colors = isGreen
+      ? ['#16a34a','#22c55e','#4ade80','#bbf7d0']
+      : ['#f97316','#fb923c','#fdba74','#fed7aa'];
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const angle = (Math.PI * 2 / 10) * i;
+      const dist = 40 + Math.random() * 50;
+      p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.left = (rect.width / 2) + 'px';
+      p.style.top = (rect.height / 2) + 'px';
+      p.style.animationDelay = (Math.random() * 0.15) + 's';
+      p.style.animationDuration = (0.5 + Math.random() * 0.4) + 's';
+      card.appendChild(p);
+      setTimeout(() => p.remove(), 900);
+    }
+  }
+
+  function spawnRipple(card, e, isGreen) {
+    const rect = card.getBoundingClientRect();
+    const r = document.createElement('div');
+    r.className = 'ripple-effect' + (isGreen ? '' : ' ripple-orange');
+    r.style.left = (e.clientX - rect.left) + 'px';
+    r.style.top = (e.clientY - rect.top) + 'px';
+    card.appendChild(r);
+    setTimeout(() => r.remove(), 800);
+  }
+
+  function animateCard(card, isGreen) {
+    const cls = isGreen ? 'clicked' : 'clicked-orange';
+    card.classList.remove('clicked', 'clicked-orange');
+    void card.offsetWidth; // force reflow
+    card.classList.add(cls);
+    setTimeout(() => card.classList.remove(cls), 700);
+  }
+
+  document.getElementById('card1').addEventListener('click', function(e) {
+    animateCard(this, true);
+    spawnRipple(this, e, true);
+    spawnParticles(this, true);
+  });
+  document.getElementById('card2').addEventListener('click', function(e) {
+    animateCard(this, false);
+    spawnRipple(this, e, false);
+    spawnParticles(this, false);
+  });
+  document.getElementById('card3').addEventListener('click', function(e) {
+    animateCard(this, true);
+    spawnRipple(this, e, true);
+    spawnParticles(this, true);
+  });
+
+  // =============================================
+  // ----  SLIDER TEMOIGNAGES ----
+  // =============================================
+  const track = document.getElementById('testiTrack');
+  const dots = document.querySelectorAll('.dot-btn');
+  const progressEl = document.getElementById('testiProgress');
+  const TOTAL = 4;
+  let current = 0;
+  let autoTimer = null;
+  let direction = 1; // 1=forward, -1=backward
+
+  function resetProgress() {
+    progressEl.style.animation = 'none';
+    void progressEl.offsetWidth;
+    progressEl.style.animation = 'progressBar 5s linear forwards';
+  }
+
+  function goTo(idx, dir) {
+    direction = dir;
+    const slides = track.querySelectorAll('.testi-slide');
+
+    // ENLEVER L4ANCIEN CLASSE DANIMATION
+    slides.forEach(s => s.classList.remove('animate-in-left','animate-in-right'));
+
+    // Move track
+    track.style.transform = `translateX(-${idx * 100}%)`;
+
+    // Animate current slide
+    const animClass = dir > 0 ? 'animate-in-right' : 'animate-in-left';
+    slides[idx].classList.add(animClass);
+    setTimeout(() => slides[idx].classList.remove(animClass), 600);
+
+    // Update dots
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    current = idx;
+
+    // Reset progress bar
+    resetProgress();
+  }
+
+  function next() {
+    const nxt = (current + 1) % TOTAL;
+    goTo(nxt, 1);
+  }
+  function prev() {
+    const prv = (current - 1 + TOTAL) % TOTAL;
+    goTo(prv, -1);
+  }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(next, 5000);
+  }
+  function stopAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+  }
+
+  document.getElementById('testiNext').addEventListener('click', () => { next(); startAuto(); });
+  document.getElementById('testiPrev').addEventListener('click', () => { prev(); startAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => {
+    const idx = parseInt(d.dataset.idx);
+    goTo(idx, idx > current ? 1 : -1);
+    startAuto();
+  }));
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    startAuto();
+  }, { passive: true });
+
+  // Pause on hover
+  track.parentElement.addEventListener('mouseenter', stopAuto);
+  track.parentElement.addEventListener('mouseleave', startAuto);
+
+  // Init
+  resetProgress();
+  startAuto();
 </script>
 </body>
 </html>
